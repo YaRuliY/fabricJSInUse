@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="styles/style.css" rel="stylesheet">
 	<script src="js/fabric.min.js"></script>
 	<script src="js/jquery.js"></script>
 	<script src="js/util.js"></script>
 </head>
 <body style="margin: 3% 7% 7% 10%;">
-	<input title="text" type="text" size="40" id="text-input"/>
+	<input title="text" type="text" size="25" id="text-input"/>
     <input title="size" type="text" size="3" id="size-input"/>
+    <input title="red" type="text" size="8" id="color-input"/>
     <select id="font-select" title="font">
-        <option value="Impact">Impact</option>
+        <option value="Bungee">Bungee</option>
+        <option value="Raleway">Raleway</option>
         <option value="Courier New">Courier New</option>
-        <option value="Comic Sans">Comic Sans</option>
-        <option value="Delicious">Tangerine</option>
+        <option value="Impact">Impact</option>
     </select>
-	<a href="#" id="add-text">add text</a>
-    <a href="#" id="edit-text">edit text</a><br><br>
+	<a href="#" id="add-text">add</a>
+    <a href="#" id="edit-text" style="visibility: hidden">edit</a><br><br>
 
 	<div style="display: block; float: left; width:550px; height:600px">
 		<canvas id="canva" width="500" height="500" style="border:1px solid #ccc"/>
@@ -34,14 +36,23 @@
 
         document.getElementById('add-text').addEventListener('click', addtext, false);
         document.getElementById('edit-text').addEventListener('click', edittext, false);
-        document.addEventListener("keydown", doDelete, false);
+        document.addEventListener("keydown", deletetext, false);
 
         canvas.on('object:selected', function(e) {
             if(e.target.type === 'text'){
                 document.getElementById('text-input').value = e.target.text;
                 document.getElementById('size-input').value = e.target.fontSize;
+                document.getElementById('color-input').value = e.target.fill;
+                document.getElementById('edit-text').style.visibility = "visible";
             }
         });
-	</script>
+
+        canvas.on('before:selection:cleared', function(e) {
+            if(e.target.type === 'text'){
+                clearInputs();
+                document.getElementById('edit-text').style.visibility = "hidden";
+            }
+        });
+    </script>
 </body>
 </html>
