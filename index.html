@@ -5,30 +5,43 @@
 	<script src="js/jquery.js"></script>
 	<script src="js/util.js"></script>
 </head>
-<body style="margin: 10%">
-	<a href="#" rel="shape0">Shape O</a>
-	<a href="#" rel="shape1">Shape L</a>
-	<a href="#" rel="shape2">Shape Z</a>
-	<br><br>
+<body style="margin: 3% 7% 7% 10%;">
+	<input title="text" type="text" size="40" id="text-input"/>
+    <input title="size" type="text" size="3" id="size-input"/>
+    <select id="font-select" title="font">
+        <option value="Impact">Impact</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Comic Sans">Comic Sans</option>
+        <option value="Delicious">Tangerine</option>
+    </select>
+	<a href="#" id="add-text">add text</a>
+    <a href="#" id="edit-text">edit text</a><br><br>
 
 	<div style="display: block; float: left; width:550px; height:600px">
-		<canvas id="canva" width="500" height="500" style="border:1px solid #ccc"></canvas>
+		<canvas id="canva" width="500" height="500" style="border:1px solid #ccc"/>
 	</div>
 
 	<script type="text/javascript">
-		wind = false;
-		var canvas = this.__canvas = new fabric.Canvas('canva', { selection: false });
-  		fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
+        wind = false;
+        var canvas = this.__canvas = new fabric.Canvas('canva', { selection: false });
+        fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
 
-		var rect = new fabric.Rect({
-			left: 100,
-			top: 100,
-			fill: 'red',
-			width: 20,
-			height: 20
-		});
-		canvas.add(rect);
+        fabric.Image.fromURL('image.png', function(image) {
+            image.set('left', 140).set('top', 140);
+            image.selectable = false;
+            canvas.add(image);
+        });
 
+        document.getElementById('add-text').addEventListener('click', addtext, false);
+        document.getElementById('edit-text').addEventListener('click', edittext, false);
+        document.addEventListener("keydown", doDelete, false);
+
+        canvas.on('object:selected', function(e) {
+            if(e.target.type === 'text'){
+                document.getElementById('text-input').value = e.target.text;
+                document.getElementById('size-input').value = e.target.fontSize;
+            }
+        });
 	</script>
 </body>
 </html>
