@@ -42,12 +42,11 @@
         canvas.on('before:selection:cleared', function(e) {
             if(e.target.type === 'text'){
                 clearInputs();
+                document.getElementById('color-select').selectedIndex = 0;
+                document.getElementById('font-select').selectedIndex = 0;
                 document.getElementById('edit-text').style.visibility = "hidden";
             }
         });
-
-        document.getElementById('add-text').addEventListener('click', addtext, false);
-        document.getElementById('edit-text').addEventListener('click', edittext, false);
     </script>
 </body>
 </html>

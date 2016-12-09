@@ -42,6 +42,7 @@ var clearInputs = function () {
     for(var i = 0;i < document.getElementsByTagName('input').length; i++) {
         document.getElementsByTagName('input')[i].value = '';
     }
+    canvas.renderAll();
 };
 
 var colorHash = {
@@ -52,10 +53,16 @@ var colorHash = {
 };
 
 var fontHash = {
-    'Bungee': 0,
-    'Raleway': 1,
-    'Courier New': 2,
-    'Impact': 3
+    'Comfortaa': 0,
+    'EB Garamond': 1,
+    'Jura': 2,
+    'Open Sans': 3,
+    'Open Sans Condensed': 4,
+    'Oranienbaum': 5,
+    'Roboto': 6,
+    'Roboto Mono': 7,
+    'Regular': 8,
+    "Courier New": 9
 };
 
 document.addEventListener("keydown", deletetext, false);
@@ -77,4 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         el.value = fontOptions[j];
         fontSelect.appendChild(el);
     }
+
+    document.getElementById('add-text').addEventListener('click', addtext, false);
+    document.getElementById('edit-text').addEventListener('click', edittext, false);
 });
