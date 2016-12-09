@@ -9,13 +9,8 @@
 <body style="margin: 3% 7% 7% 10%;">
 	<input title="text" type="text" size="25" id="text-input"/>
     <input title="size" type="text" size="3" id="size-input"/>
-    <input title="red" type="text" size="8" id="color-input"/>
-    <select id="font-select" title="font">
-        <option value="Bungee">Bungee</option>
-        <option value="Raleway">Raleway</option>
-        <option value="Courier New">Courier New</option>
-        <option value="Impact">Impact</option>
-    </select>
+    <select id="color-select" title="color"></select>
+    <select id="font-select" title="font"></select>
 	<a href="#" id="add-text">add</a>
     <a href="#" id="edit-text" style="visibility: hidden">edit</a><br><br>
 
@@ -34,15 +29,12 @@
             canvas.add(image);
         });
 
-        document.getElementById('add-text').addEventListener('click', addtext, false);
-        document.getElementById('edit-text').addEventListener('click', edittext, false);
-        document.addEventListener("keydown", deletetext, false);
-
         canvas.on('object:selected', function(e) {
             if(e.target.type === 'text'){
                 document.getElementById('text-input').value = e.target.text;
                 document.getElementById('size-input').value = e.target.fontSize;
-                document.getElementById('color-input').value = e.target.fill;
+                document.getElementById('color-select').selectedIndex = colorHash[e.target.fill];
+                document.getElementById('font-select').selectedIndex = fontHash[e.target.fontFamily];
                 document.getElementById('edit-text').style.visibility = "visible";
             }
         });
@@ -53,6 +45,9 @@
                 document.getElementById('edit-text').style.visibility = "hidden";
             }
         });
+
+        document.getElementById('add-text').addEventListener('click', addtext, false);
+        document.getElementById('edit-text').addEventListener('click', edittext, false);
     </script>
 </body>
 </html>
